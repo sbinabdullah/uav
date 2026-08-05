@@ -77,7 +77,7 @@ make -C PX4-Autopilot px4_sitl_default
 scripts/install_sim.sh
 
 # every run:
-scripts/stack_up.sh "sar_bringup demo.launch.py"   # agent + SITL + all nodes
+scripts/stack_up.sh --launch sar_bringup demo.launch.py  # agent + SITL + all nodes
 python3 scripts/mavlink_monitor.py                 # MAVLink sidecar (optional)
 python3 scripts/record_demo.py output/demo.mp4     # split-screen video (optional)
 scripts/stack_down.sh
@@ -85,6 +85,19 @@ scripts/stack_down.sh
 # after the flight:
 python3 scripts/score_mission.py                   # accuracy report vs ground truth
 ```
+
+`stack_up.sh` runs headless by default. Use `--gui` to start Xvfb, openbox, and
+x11vnc; pass ROS launch arguments after the launch file:
+
+```bash
+STACK_VNC_PASSWORD='your-password' scripts/stack_up.sh --gui \
+  --launch sar_bringup demo.launch.py rviz:=true
+```
+
+Use `stack_up.sh --restart` to replace an existing stack. `stack_down.sh
+--keep-display` stops the ROS/PX4 stack but leaves the GUI and VNC server up;
+`stack_down.sh --force` also removes a matching legacy x11vnc process if it was
+started before PID tracking was added.
 
 With a display, add `rviz:=true` to the launch for the RViz view
 (`config/rviz/sar.rviz`). On a desktop, record Gazebo + RViz with OBS instead
