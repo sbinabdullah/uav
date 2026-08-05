@@ -16,6 +16,10 @@ telemetry channel against the DDS-derived findings.
 - Artifacts per run: `findings.csv`, `findings.geojson`, `sightings.csv`,
   `mavlink_log.csv`, `demo.mp4` (split-screen camera+map video)
 
+## Demo
+
+![Autonomous search-and-rescue mission demo](assets/demo.gif)
+
 ## Stack
 
 Ubuntu 26.04 · ROS 2 **Lyrical** · Gazebo **Jetty** (ROS-vendored) ·
