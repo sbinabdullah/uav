@@ -1,0 +1,38 @@
+# Ground truth for sar_zone targets.
+# Positions are world-frame ENU (metres), drone spawns at world origin.
+# PX4 local NED: north = y_enu, east = x_enu, down = -z_enu.
+# GPS ground truth is derived from `origin` + ENU by scripts/score_mission.py.
+origin:
+  latitude_deg: 47.397971057728974
+  longitude_deg: 8.546163739800146
+  elevation_m: 0.0
+
+targets:
+  - name: aruco_0
+    type: aruco
+    aruco_id: 0
+    enu: [15.0, -10.0, 0.0]
+  - name: aruco_1
+    type: aruco
+    aruco_id: 1
+    enu: [30.0, 5.0, 0.0]
+  - name: aruco_2
+    type: aruco
+    aruco_id: 2
+    enu: [45.0, -5.0, 0.0]
+  - name: aruco_3
+    type: aruco
+    aruco_id: 3
+    enu: [55.0, 12.0, 0.0]
+  - name: victim_orange
+    type: color
+    color: orange
+    enu: [22.0, 8.0, 0.15]
+  - name: hazard_red
+    type: color
+    color: red
+    enu: [38.0, -14.0, 0.3]
+  - name: barrel_yellow
+    type: color
+    color: yellow
+    enu: [50.0, 2.0, 0.3]
