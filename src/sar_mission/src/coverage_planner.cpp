@@ -47,7 +47,14 @@ std::vector<Waypoint> CoveragePlanner::plan() const
   std::vector<Waypoint> out;
   out.reserve(n_lanes * 2);
   for (int i = 0; i < n_lanes; ++i) {
-    const double v = std::min(v_min + i * lane_spacing_, v_max);
+    double v = v_min + i * lane_spacing_;
+    // clamp the final lane to the AOI edge, but skip it if it would be a
+    // near-duplicate of the previous lane (already covered by overlap)
+    if (v > v_max) {
+      const double v_prev = v_min + (i - 1) * lane_spacing_;
+      if (i > 0 && (v_max - v_prev) < 0.5 * lane_spacing_) break;
+      v = v_max;
+    }
     const bool forward = (i % 2 == 0);
     const double u0 = forward ? u_min : u_max;
     const double u1 = forward ? u_max : u_min;

@@ -1,0 +1,23 @@
+{
+  "configurations": [
+    {
+      "browse": {
+        "databaseFilename": "${workspaceFolder}/.vscode/browse.vc.db",
+        "limitSymbolsToIncludedHeaders": false
+      },
+      "includePath": [
+        "/mnt/mac/Users/clu/projects/raccoon/uav/install/sar_msgs/include/**",
+        "/home/raccoon/ws_px4/install/px4_ros_com/include/**",
+        "/home/raccoon/ws_px4/install/px4_msgs/include/**",
+        "/opt/ros/lyrical/include/**",
+        "/usr/include/**"
+      ],
+      "name": "ros2",
+      "intelliSenseMode": "gcc-arm64",
+      "compilerPath": "/usr/bin/gcc",
+      "cStandard": "gnu11",
+      "cppStandard": "c++17"
+    }
+  ],
+  "version": 4
+}

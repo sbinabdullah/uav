@@ -1,0 +1,15 @@
+{
+    "ROS2.distro": "lyrical",
+    "python.autoComplete.extraPaths": [
+        "/mnt/mac/Users/clu/projects/raccoon/uav/install/sar_perception/lib/python3.14/site-packages",
+        "/mnt/mac/Users/clu/projects/raccoon/uav/install/sar_msgs/lib/python3.14/site-packages",
+        "/home/raccoon/ws_px4/install/px4_ros_com/lib/python3.14/site-packages",
+        "/home/raccoon/ws_px4/install/px4_msgs/lib/python3.14/site-packages",
+        "/opt/ros/lyrical/opt/gz_sim_vendor/lib/python",
+        "/opt/ros/lyrical/opt/gz_transport_vendor/lib/python",
+        "/opt/ros/lyrical/opt/sdformat_vendor/lib/python",
+        "/opt/ros/lyrical/opt/gz_msgs_vendor/lib/python",
+        "/opt/ros/lyrical/opt/gz_math_vendor/lib/python",
+        "/opt/ros/lyrical/lib/python3.14/site-packages"
+    ]
+}

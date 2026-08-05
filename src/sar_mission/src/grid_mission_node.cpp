@@ -225,6 +225,7 @@ private:
           RCLCPP_INFO(get_logger(), "sweep complete, sending RTL");
           sendCommand(px4_msgs::msg::VehicleCommand::VEHICLE_CMD_NAV_RETURN_TO_LAUNCH);
           state_ = State::kRtl;
+          state_enter_time_ = now();
           break;
         }
         const auto & wp = waypoints_[wp_index_];
@@ -239,6 +240,24 @@ private:
       }
 
       case State::kRtl:
+        // SITL quirk: RTL can hover a few cm above ground without the land
+        // detector firing (home altitude bias). Escalate: RTL -> Land mode ->
+        // forced disarm, whichever terminates first.
+        if (have_status_ && have_position_ &&
+            last_status_.arming_state != px4_msgs::msg::VehicleStatus::ARMING_STATE_DISARMED &&
+            last_local_pos_.z > -1.0f) {
+          const double in_rtl = (now() - state_enter_time_).seconds();
+          if (!land_forced_ && in_rtl > 25.0) {
+            RCLCPP_WARN(get_logger(), "RTL did not disarm near ground, forcing Land mode");
+            sendCommand(px4_msgs::msg::VehicleCommand::VEHICLE_CMD_NAV_LAND);
+            land_forced_ = true;
+          } else if (land_forced_ && !disarm_forced_ && in_rtl > 45.0) {
+            RCLCPP_WARN(get_logger(), "landed but not disarmed, forcing disarm");
+            sendCommand(px4_msgs::msg::VehicleCommand::VEHICLE_CMD_COMPONENT_ARM_DISARM,
+                        0, 21196);  // param2 21196 = force disarm in air/ground
+            disarm_forced_ = true;
+          }
+        }
         if (have_status_ &&
             last_status_.arming_state == px4_msgs::msg::VehicleStatus::ARMING_STATE_DISARMED) {
           RCLCPP_INFO(get_logger(), "landed and disarmed, mission done");
@@ -278,6 +297,8 @@ private:
   bool have_position_{false};
   bool have_status_{false};
   bool offboard_confirmed_{false};
+  bool land_forced_{false};
+  bool disarm_forced_{false};
 };
 
 int main(int argc, char * argv[])
