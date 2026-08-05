@@ -49,6 +49,16 @@ valid_number() {
   [[ "$1" =~ ^[0-9]+$ ]]
 }
 
+force_kill() {
+  local label="$1"
+  local pattern="$2"
+  if pkill -TERM -f "$pattern" 2>/dev/null; then
+    log "stopping legacy $label processes"
+    sleep 1
+    pkill -KILL -f "$pattern" 2>/dev/null || true
+  fi
+}
+
 has_session() {
   tmux has-session -t "$1" 2>/dev/null
 }
@@ -166,9 +176,19 @@ fi
 
 if ((FORCE && KEEP_DISPLAY == 0)); then
   if command -v pkill >/dev/null 2>&1; then
-    if pkill -f "[x]11vnc.*-rfbport $VNC_PORT" 2>/dev/null; then
-      log "stopped matching legacy x11vnc on port $VNC_PORT"
-    fi
+    force_kill "x11vnc" "[x]11vnc.*-rfbport $VNC_PORT"
+  fi
+fi
+
+if ((FORCE)); then
+  if command -v pkill >/dev/null 2>&1; then
+    pkill -TERM -x px4 2>/dev/null && log "stopping legacy px4" || true
+    force_kill "MicroXRCEAgent" "[M]icroXRCEAgent"
+    force_kill "ros_gz_bridge" "[r]os_gz_bridge"
+    force_kill "mission node" "[g]rid_mission_node"
+    force_kill "Gazebo server" "[g]z-sim-mai[n]"
+    force_kill "Gazebo GUI" "[g]z-sim-gu[i]"
+    force_kill "RViz" "[r]vi[z]2"
   fi
 fi
 

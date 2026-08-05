@@ -267,6 +267,7 @@ trap cleanup_on_error EXIT
 if ((GUI)); then
   command -v Xvfb >/dev/null 2>&1 || die "Xvfb is required for --gui"
   command -v openbox >/dev/null 2>&1 || die "openbox is required for --gui"
+  command -v xdpyinfo >/dev/null 2>&1 || die "xdpyinfo is required for --gui"
   start_gui
   RENDER_ENV="export DISPLAY=$(quote ":$DISPLAY_NUM"); export LIBGL_ALWAYS_SOFTWARE=1;"
 else
