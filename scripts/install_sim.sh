@@ -23,4 +23,16 @@ for m in "$REPO_DIR"/sim/models/*/; do
   cp -r "$m" "$GZ_MODELS/$name"
 done
 
-echo "done. Run: PX4_GZ_WORLD=sar_zone make px4_sitl gz_x500_mono_cam_down"
+# airframe + registration
+AF_DIR="$PX4_DIR/ROMFS/px4fmu_common/init.d-posix/airframes"
+for af in "$REPO_DIR"/sim/airframes/*; do
+  name="$(basename "$af")"
+  echo "installing airframe -> $AF_DIR/$name"
+  cp "$af" "$AF_DIR/$name"
+  if ! grep -q "$name" "$AF_DIR/CMakeLists.txt"; then
+    echo "registering $name in airframes/CMakeLists.txt"
+    sed -i "s/^\(\t4014_gz_x500_mono_cam_down\)/\1\n\t${name}/" "$AF_DIR/CMakeLists.txt"
+  fi
+done
+
+echo "done. Run: PX4_GZ_WORLD=sar_zone make px4_sitl gz_x500_sar"

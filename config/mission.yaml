@@ -1,0 +1,27 @@
+# Grid survey mission parameters (PX4 local NED frame, metres).
+# AOI covers the sar_zone targets: NED north = ENU y, NED east = ENU x.
+grid_mission_node:
+  ros__parameters:
+    # PX4 topic names (versioned names on PX4 main)
+    topic_local_position: /fmu/out/vehicle_local_position_v1
+    topic_vehicle_status: /fmu/out/vehicle_status_v4
+    topic_offboard_control_mode: /fmu/in/offboard_control_mode
+    topic_trajectory_setpoint: /fmu/in/trajectory_setpoint
+    topic_vehicle_command: /fmu/in/vehicle_command
+
+    # area of interest (NED, relative to takeoff point)
+    aoi_north_min: -20.0
+    aoi_north_max: 20.0
+    aoi_east_min: 10.0
+    aoi_east_max: 60.0
+
+    # survey geometry (mono_cam_down: hfov 99.7 deg, vfov ~83 deg)
+    altitude_m: 10.0
+    hfov_deg: 99.7
+    vfov_deg: 83.0
+    side_overlap: 0.25
+    lane_heading_deg: 90.0   # lanes run along east
+
+    # waypoint acceptance
+    reach_tol_xy_m: 1.0
+    reach_tol_z_m: 0.6

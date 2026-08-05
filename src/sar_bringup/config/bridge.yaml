@@ -1,8 +1,8 @@
 # ros_gz_bridge endpoint config for the sar_zone world.
 # NOTE: the gz topic contains the spawned model instance name
-# (x500_mono_cam_down_0). If the airframe/model changes, update it here.
+# (x500_sar_0). If the airframe/model changes, update it here.
 - ros_topic_name: /camera/image_raw
-  gz_topic_name: /world/sar_zone/model/x500_mono_cam_down_0/link/camera_link/sensor/camera/image
+  gz_topic_name: /world/sar_zone/model/x500_sar_0/link/camera_link/sensor/camera/image
   ros_type_name: sensor_msgs/msg/Image
   gz_type_name: gz.msgs.Image
   subscriber_queue: 5
@@ -11,7 +11,7 @@
   direction: GZ_TO_ROS
 
 - ros_topic_name: /camera/camera_info
-  gz_topic_name: /world/sar_zone/model/x500_mono_cam_down_0/link/camera_link/sensor/camera/camera_info
+  gz_topic_name: /world/sar_zone/model/x500_sar_0/link/camera_link/sensor/camera/camera_info
   ros_type_name: sensor_msgs/msg/CameraInfo
   gz_type_name: gz.msgs.CameraInfo
   subscriber_queue: 5
