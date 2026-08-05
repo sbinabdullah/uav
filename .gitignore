@@ -1,0 +1,11 @@
+# plan/research working docs are kept out of git
+docs/
+.firecrawl/
+
+# build and run artifacts
+output/
+build/
+install/
+log/
+__pycache__/
+*.pyc
