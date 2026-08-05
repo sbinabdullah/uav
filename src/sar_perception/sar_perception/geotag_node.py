@@ -45,9 +45,9 @@ class GeotagNode(Node):
         self.declare_parameter('attitude_topic', '/fmu/out/vehicle_attitude')
         self.declare_parameter('global_position_topic', '/fmu/out/vehicle_global_position')
         self.declare_parameter('camera_info_topic', '/camera/camera_info')
-        self.declare_parameter('dedupe_radius_m', 3.0)
+        self.declare_parameter('dedupe_radius_m', 5.0)
         self.declare_parameter('min_ray_down', 0.05)
-        self.declare_parameter('center_gate', 1.0)  # fraction of frame half-dim; 1.0 = off
+        self.declare_parameter('center_gate', 0.8)  # fraction of frame half-dim; 1.0 = off
         self.declare_parameter('output_dir', 'output')
         self.declare_parameter('cam_to_body', DEFAULT_CAM_TO_BODY)
 

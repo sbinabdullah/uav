@@ -1,0 +1,52 @@
+Panels:
+  - Class: rviz_common/Displays
+    Name: Displays
+  - Class: rviz_common/Views
+    Name: Views
+Visualization Manager:
+  Class: ""
+  Displays:
+    - Class: rviz_default_plugins/Grid
+      Name: Grid
+      Plane Cell Count: 80
+      Reference Frame: <Fixed Frame>
+      Value: true
+    - Class: rviz_default_plugins/Path
+      Name: PlannedGrid
+      Topic:
+        Value: /sar/planned_path_enu
+      Color: 255; 170; 0
+      Value: true
+    - Class: rviz_default_plugins/Path
+      Name: FlownPath
+      Topic:
+        Value: /sar/flown_path
+      Color: 25; 255; 25
+      Value: true
+    - Class: rviz_default_plugins/MarkerArray
+      Name: Findings
+      Topic:
+        Value: /sar/markers
+      Value: true
+    - Class: rviz_default_plugins/Image
+      Name: CameraDetections
+      Topic:
+        Value: /sar/debug_image
+      Value: true
+    - Class: rviz_default_plugins/Image
+      Name: MissionMap
+      Topic:
+        Value: /sar/map_image
+      Value: true
+  Global Options:
+    Fixed Frame: map
+  Value: true
+  Views:
+    Current:
+      Class: rviz_default_plugins/Orbit
+      Distance: 120
+      Pitch: 1.2
+      Target Frame: map
+Window Geometry:
+  Width: 1600
+  Height: 1000
